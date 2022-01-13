@@ -118,5 +118,6 @@ func main() {
     // p2 wins
     blue.Println(p2Name, "has won the game with", p2Points, "points!")
   }
+  fmt.Scanln()
 
 }

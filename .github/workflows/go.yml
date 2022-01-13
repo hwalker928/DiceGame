@@ -24,7 +24,6 @@ jobs:
         with:
           tag_name: ${{ github.run_id }}
           release_name: ${{ github.run_id }}
-          body_path: Release via commit
           draft: true
           prerelease: false
       - name: Upload Executable

@@ -1,0 +1,38 @@
+name: Create Release
+on:
+  push:
+    branches: [master]
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+      - name: Build
+        run: |
+          CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o build/DiceGame.exe
+      - name: Test
+        run: go test ./...
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_id }}
+          release_name: ${{ github.run_id }}
+          body_path: Release via commit
+          draft: true
+          prerelease: false
+      - name: Upload Executable
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/DiceGame.exe
+          asset_name: DiceGame.exe
+          asset_content_type: application/octet-stream

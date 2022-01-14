@@ -69,10 +69,10 @@ func main() {
 func game() {
   clearScreen()
   if currentTurn == 1 {
-		str := p1Name + " - " + strconv.Itoa(p1Points)
+    str := p1Name + " - " + strconv.Itoa(p1Points)
     color.Red(str)
   } else {
-		str := p2Name + " - " + strconv.Itoa(p2Points)
+    str := p2Name + " - " + strconv.Itoa(p2Points)
     color.Blue(str)
   }
   color.Magenta("Press ENTER to roll...")

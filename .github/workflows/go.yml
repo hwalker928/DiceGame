@@ -13,8 +13,10 @@ jobs:
           go-version: '^1.16'
       - name: Build
         run: |
-          env GOOS=windows GOARCH=amd64 go build -o build/DiceGame_Windows.exe
-          env GOOS=darwin GOARCH=amd64 go build -o build/DiceGame_Mac
+          set GOOS=windows
+          go build -o build/DiceGame_Windows.exe
+          set GOOS=darwin
+          go build -o build/DiceGame_Mac
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

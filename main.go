@@ -1,25 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"strconv"
-	"time"
+  "fmt"
+  "math/rand"
+  "strconv"
+  "time"
 
-	"github.com/fatih/color"
-	"github.com/inancgumus/screen"
+  "github.com/fatih/color"
+  "github.com/inancgumus/screen"
 )
 
 var (
-	currentTurn int = 2
-	dice1 int
-	dice2 int
-	p1Name string
-	p2Name string
-	lastDouble1 bool = false
-	lastDouble2 bool = false
-	p1Points int = 0
-	p2Points int = 0
+  currentTurn int = 2
+  dice1 int
+  dice2 int
+  p1Name string
+  p2Name string
+  lastDouble1 bool = false
+  lastDouble2 bool = false
+  p1Points int = 0
+  p2Points int = 0
 )
 
 func rollDice() int {
@@ -28,7 +28,7 @@ func rollDice() int {
 
 func clearScreen() {
   screen.Clear()
-	screen.MoveTopLeft()
+  screen.MoveTopLeft()
 }
 
 func main() {

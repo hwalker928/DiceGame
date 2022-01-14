@@ -55,13 +55,15 @@ func main() {
   clearScreen()
   if p1Points > p2Points {
     // Player 1 wins
-    color.Red(p1Name, "has won the game with", p1Points, "points!")
+    str_end := p1Name + " has won the game with " + strconv.Itoa(p1Points) + " points!"
+    color.Red(str_end)
   } else if p1Points == p2Points {
     // Ends in a draw
     color.Magenta("The game ended in a draw. Better luck next time.")
   } else {
     // Player 2 wins
-    color.Blue(p2Name, "has won the game with", p2Points, "points!")
+    str_end := p2Name + " has won the game with " + strconv.Itoa(p2Points) + " points!"
+    color.Blue(str_end)
   }
   fmt.Scanln()
 }

@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/inancgumus/screen"
 )
 
 func rollDice() int {
@@ -13,9 +14,8 @@ func rollDice() int {
 }
 
 func clearScreen() {
-  for i:=0; i < 15; i++ {
-    fmt.Println("\033[2J")
-  }
+  screen.Clear()
+	screen.MoveTopLeft()
 }
 
 func main() {
@@ -36,6 +36,7 @@ func main() {
   red := color.New(color.FgRed) // Player 1 output
   blue := color.New(color.FgCyan) // Player 2 output
 
+	clearScreen()
   magenta.Println("Welcome to the dice game.")
   red.Println("\n\nPlayer 1")
   fmt.Println("It seems we haven't met before.\nWhat is your name?")

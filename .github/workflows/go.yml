@@ -1,4 +1,4 @@
-name: Create Release
+name: Deploy
 on:
   push:
     branches: [master]
@@ -13,9 +13,8 @@ jobs:
           go-version: '^1.16'
       - name: Build
         run: |
-          go build -o build/DiceGame.exe
-      - name: Test
-        run: go test ./...
+          GOOS=windows GOARCH=amd64 go build -o build/DiceGame_Windows.exe
+          GOOS=darwin GOARCH=amd64 go build -o build/DiceGame_Mac
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -26,12 +25,21 @@ jobs:
           release_name: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
-      - name: Upload Executable
+      - name: Upload Windows
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/DiceGame.exe
-          asset_name: DiceGame.exe
+          asset_path: build/DiceGame_Windows.exe
+          asset_name: DiceGame_Windows.exe
+          asset_content_type: application/octet-stream
+      - name: Upload Mac
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/DiceGame_Mac
+          asset_name: DiceGame_Mac
           asset_content_type: application/octet-stream

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/fatih/color"
@@ -31,18 +32,13 @@ func clearScreen() {
 }
 
 func main() {
-  // Add support for colours
-  magenta := color.New(color.FgMagenta) // System output
-  red := color.New(color.FgRed) // Player 1 output
-  blue := color.New(color.FgCyan) // Player 2 output
-
   // Introduction
   clearScreen()
-  magenta.Println("Welcome to the dice game.")
-  red.Println("\n\nPlayer 1")
+  color.Magenta("Welcome to the dice game.")
+  color.Red("\n\nPlayer 1")
   fmt.Println("It seems we haven't met before.\nWhat is your name?")
   fmt.Scanln(&p1Name) // Take player 1's name and store it as p1Name
-  blue.Println("\n\nPlayer 2")
+  color.Blue("\n\nPlayer 2")
   fmt.Println("It seems we haven't met before.\nWhat is your name?")
   fmt.Scanln(&p2Name) // Take player 2's name and store it as p2Name
   clearScreen()
@@ -59,29 +55,27 @@ func main() {
   clearScreen()
   if p1Points > p2Points {
     // Player 1 wins
-    red.Println(p1Name, "has won the game with", p1Points, "points!")
+    color.Red(p1Name, "has won the game with", p1Points, "points!")
   } else if p1Points == p2Points {
     // Ends in a draw
-    magenta.Println("The game ended in a draw. Better luck next time.")
+    color.Magenta("The game ended in a draw. Better luck next time.")
   } else {
     // Player 2 wins
-    blue.Println(p2Name, "has won the game with", p2Points, "points!")
+    color.Blue(p2Name, "has won the game with", p2Points, "points!")
   }
   fmt.Scanln()
 }
 
 func game() {
-  magenta := color.New(color.FgMagenta) // System output
-  yellow := color.New(color.FgYellow) // Double output
-  red := color.New(color.FgRed) // Player 1 output
-  blue := color.New(color.FgCyan) // Player 2 output
   clearScreen()
   if currentTurn == 1 {
-    red.Println(p1Name, "-", p1Points)
+		str := p1Name + " - " + strconv.Itoa(p1Points)
+    color.Red(str)
   } else {
-    blue.Println(p2Name, "-", p2Points)
+		str := p2Name + " - " + strconv.Itoa(p2Points)
+    color.Blue(str)
   }
-  magenta.Println("Press ENTER to roll...")
+  color.Magenta("Press ENTER to roll...")
   fmt.Scanln()
   rand.Seed(time.Now().UnixNano()) // Set random seed
   dice1 = rollDice()
@@ -89,11 +83,11 @@ func game() {
   dice2 = rollDice()
   fmt.Println("Dice 2: ", dice2)
   if dice1 == dice2 {
-    yellow.Println("\n\n You rolled a double!")
+    color.Yellow("\n\n You rolled a double!")
     if currentTurn == 1 {
       p1Points = p1Points + 1
       if lastDouble1 {
-        yellow.Println(" 2x in a row! DOUBLE POINTS!")
+        color.Yellow(" 2x in a row! DOUBLE POINTS!")
         p1Points = p1Points * 2
         lastDouble1 = false // If 2x in a row, set last to false to prevent 3x in a row
       } else {
@@ -102,7 +96,7 @@ func game() {
     } else {
     p2Points = p2Points + 1
       if lastDouble2 {
-        yellow.Println(" 2x in a row! DOUBLE POINTS!")
+        color.Yellow(" 2x in a row! DOUBLE POINTS!")
         p2Points = p2Points * 2
         lastDouble2 = false // If 2x in a row, set last to false to prevent 3x in a row
       } else {
@@ -116,6 +110,6 @@ func game() {
       lastDouble2 = false
     }
   }
-  magenta.Println("Press ENTER to end your turn...")
+  color.Magenta("Press ENTER to end your turn...")
   fmt.Scanln()
 }

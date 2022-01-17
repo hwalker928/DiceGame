@@ -38,9 +38,11 @@ func main() {
   color.Red("\n\nPlayer 1")
   fmt.Println("It seems we haven't met before.\nWhat is your name?")
   fmt.Scanln(&p1Name) // Take player 1's name and store it as p1Name
+  p1Name = p1Name[0:15] // Limit name to 16 characters
   color.Blue("\n\nPlayer 2")
   fmt.Println("It seems we haven't met before.\nWhat is your name?")
   fmt.Scanln(&p2Name) // Take player 2's name and store it as p2Name
+  p1Name = p2Name[0:15] // Limit name to 16 characters
   clearScreen()
 
   for i:=0; i < 32; i++ {
